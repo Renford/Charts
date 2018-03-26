@@ -55,7 +55,13 @@ open class DataRenderer: Renderer
     {
         guard let data = dataProvider?.data
             else { return false }
-        
-        return data.entryCount < Int(CGFloat(dataProvider?.maxVisibleCount ?? 0) * (viewPortHandler?.scaleX ?? 1.0))
+
+        let showEntryCount = data.dataSets.reduce(into: 0) { (result, dataset) in
+            if dataset.drawValuesEnabled {
+                result += dataset.entryCount
+            }
+        }
+
+        return showEntryCount < Int(CGFloat(dataProvider?.maxVisibleCount ?? 0) * (viewPortHandler?.scaleX ?? 1.0))
     }
 }
