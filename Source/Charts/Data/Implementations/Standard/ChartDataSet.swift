@@ -115,16 +115,16 @@ open class ChartDataSet: ChartBaseDataSet
         {
             return
         }
-        
+
         _yMax = -Double.greatestFiniteMagnitude
         _yMin = Double.greatestFiniteMagnitude
-        
+
         let indexFrom = entryIndex(x: fromX, closestToY: Double.nan, rounding: .down)
         let indexTo = entryIndex(x: toX, closestToY: Double.nan, rounding: .up)
-        
-        if indexTo <= indexFrom { return }
-        
-        for i in indexFrom..<indexTo
+
+        if indexTo < indexFrom { return }
+
+        for i in indexFrom...indexTo
         {
             // only recalculate y
             calcMinMaxY(entry: _values[i])
